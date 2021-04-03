@@ -1,0 +1,53 @@
+﻿@model ShopApp.WEBUI.Models.ProductListViewModel
+
+@{
+    var popularClass = Model.Products.Count > 2 ? "popular" : "";
+    var products = Model.Products;
+}
+
+@{
+    ViewData["Title"] = "List"; 
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        .popular {
+            color: green;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    @section Categories{
+        @await Component.InvokeAsync("Categories")
+    }
+   
+                    @if (products.Count == 0)
+                    {
+
+                        @await Html.PartialAsync("_noproducts")
+
+
+                    }
+                    else
+                    {
+                        <div class="row">
+                            @foreach (var product in products)
+                            {
+                                <div class="col-md-4">
+                                    @await Html.PartialAsync("_showproduct", product)
+                                </div>
+                            }
+                        </div>
+                    }
+
+</body>
+</html>
